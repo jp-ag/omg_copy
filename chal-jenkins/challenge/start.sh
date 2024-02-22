@@ -1,17 +1,10 @@
 #!/bin/bash
 
 # Start web server if it is not running
-#ps -ef | grep jenkins.war | grep -v grep
-#pidof java 
-#if [ $? -eq 1 ]
-#then
-	# /var/jenkins_home/logs.txt
-	# currently capturing logs
-#pkill -f 'java -jar'
-#(java -jar usr/share/jenkins/jenkins.war) > /dev/null 2>&1 &
-#fi
 
-# Proxy stdin/stdout to server
-#socat - TCP:127.0.0.1:8080,forever
+(java -jar usr/share/jenkins/jenkins.war) > /dev/null 2>&1 &
 
-/bin/bash -i
+/usr/sbin/sshd -f /home/user/etc/sshd_config -D &
+
+# Proxy stdin/stdout to ssh port
+socat - TCP:127.0.0.1:2022,forever
